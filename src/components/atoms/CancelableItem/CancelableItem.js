@@ -28,7 +28,7 @@ const StyledIconButton = styled.button`
   width: 67px;
   height: 67px;
   border-radius: 20px;
-  background-image: url(deleteIcon);
+  background-image: url(${deleteIcon});
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: 40%;
