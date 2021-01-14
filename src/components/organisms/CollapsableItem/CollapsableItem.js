@@ -3,8 +3,8 @@ import arrowOpenIcon from 'assets/arrow_open.svg';
 import arrowCloseIcon from 'assets/arrow_close.svg';
 import Heading from "components/atoms/Heading/Heading";
 import PropTypes from 'prop-types';
-import Paragraph from "../../atoms/Paragraph/Paragraph";
 import {useState} from "react";
+import PlanetsTable from "../../molecules/PlanetsTable/PlanetsTable";
 
 const HeadingWrapper = styled.div`
   box-shadow: ${({isCollapsed}) => (
@@ -52,7 +52,7 @@ const ContentWrapper = styled.div`
   position: absolute;
   left: 0;
   top: 12px;
-  padding-top: 48px;
+  padding-top: 40px;
   display: ${({isCollapsed}) => isCollapsed ? 'none' : 'block'};
 `;
 
@@ -61,7 +61,7 @@ const StyledWrapper = styled.div`
 `;
 
 
-const CollapsableItem = ({title, child}) => {
+const CollapsableItem = ({title, child, data}) => {
   const [isCollapsed, setCollapsed] = useState(true);
 
   const toggleCollapsed = () => {
@@ -78,6 +78,7 @@ const CollapsableItem = ({title, child}) => {
       </HeadingWrapper>
       <ContentWrapper isCollapsed={isCollapsed}>
         {child}
+        {data && <PlanetsTable data={data}/>}
       </ContentWrapper>
     </StyledWrapper>
   )
