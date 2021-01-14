@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import magnifierIcon from 'assets/SEARCH.svg';
+import magnifierIcon from 'assets/search.svg';
 
 const Input = styled.input`
   padding-bottom: 7px;

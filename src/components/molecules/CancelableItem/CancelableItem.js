@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import deleteIcon from 'assets/DELETE.svg';
+import deleteIcon from 'assets/delete.svg';
 import Paragraph from "components/atoms/Paragraph/Paragraph";
 
 const StyledWrapper = styled.div`
