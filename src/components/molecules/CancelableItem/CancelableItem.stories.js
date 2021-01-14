@@ -2,7 +2,7 @@ import React from 'react';
 import CancelableItem from "./CancelableItem";
 
 export default {
-  title: 'Components/CancelableItem',
+  title: 'Components/Molecules/CancelableItem',
   component: CancelableItem,
 };
 

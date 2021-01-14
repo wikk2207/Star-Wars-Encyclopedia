@@ -1,38 +1,32 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import deleteIcon from 'assets/DELETE.svg';
+import Paragraph from "components/atoms/Paragraph/Paragraph";
 
 const StyledWrapper = styled.div`
-  width: 122px;
-  height: 32px;
+  width: fit-content;
+  height: fit-content;
+  min-height: 32px;
   border: 1px solid #999999;
   border-radius: 18px;
-  position: relative;
 `;
 
-const StyledParagraph = styled.p`
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  color: #474747;
-  position: absolute;
-  top: 6px;
+const StyledParagraph = styled(Paragraph)`
   text-align: left;
-  padding-left: 16px;
-  margin: 0px;
+  margin: 6px 0px 6px 16px;
+  display: inline-block;
 `;
 
 const StyledIconButton = styled.button`
-  display: block;
-  width: 67px;
-  height: 67px;
-  border-radius: 20px;
-  background-image: url(${deleteIcon});
+  margin: 10px 16px 0px 13px;
+  width: 13px;
+  height: 13px;
+  background-image: url(${() => deleteIcon});
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  background-size: 40%;
   border: none;
+  background-color: transparent;
+  display: inline-block;
 `;
 
 const CancelableItem = ({name}) => {
@@ -41,6 +35,7 @@ const CancelableItem = ({name}) => {
       <StyledParagraph>
         {name}
       </StyledParagraph>
+      <StyledIconButton />
     </StyledWrapper>
   )
 }
