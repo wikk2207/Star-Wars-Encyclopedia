@@ -5,10 +5,12 @@ import Paragraph from "components/atoms/Paragraph/Paragraph";
 
 const StyledWrapper = styled.div`
   width: fit-content;
-  height: fit-content;
+  height: 32px;
   min-height: 32px;
   border: 1px solid #999999;
   border-radius: 18px;
+  margin: 5px;
+  display: inline-block;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -29,13 +31,16 @@ const StyledIconButton = styled.button`
   display: inline-block;
 `;
 
-const CancelableItem = ({name}) => {
+const CancelableItem = ({name, planetId, onDelete}) => {
   return (
     <StyledWrapper>
       <StyledParagraph>
         {name}
       </StyledParagraph>
-      <StyledIconButton />
+      <StyledIconButton
+        onClick={() => onDelete(planetId)}
+        type="button"
+      />
     </StyledWrapper>
   )
 }
