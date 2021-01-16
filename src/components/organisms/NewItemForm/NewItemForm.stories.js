@@ -3,7 +3,7 @@ import NewItemForm from "./NewItemForm";
 
 
 export default {
-  title: 'Components/Molecules/NewItemForm',
+  title: 'Components/Organisms/NewItemForm',
   component: NewItemForm,
 };
 

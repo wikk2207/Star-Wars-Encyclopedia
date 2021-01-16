@@ -45,6 +45,7 @@ const CancelableItem = ({name, planetId, onDelete}) => {
   )
 }
 
+
 CancelableItem.propTypes = {
   name: PropTypes.string.isRequired,
 }

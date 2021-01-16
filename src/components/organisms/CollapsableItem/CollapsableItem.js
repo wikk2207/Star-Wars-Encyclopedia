@@ -4,7 +4,7 @@ import arrowCloseIcon from 'assets/arrow_close.svg';
 import Heading from "components/atoms/Heading/Heading";
 import PropTypes from 'prop-types';
 import {useState} from "react";
-import PlanetsTable from "../../molecules/PlanetsTable/PlanetsTable";
+import PlanetsTable from "components/molecules/PlanetsTable/PlanetsTable";
 
 const HeadingWrapper = styled.div`
   box-shadow: ${({isCollapsed}) => (
