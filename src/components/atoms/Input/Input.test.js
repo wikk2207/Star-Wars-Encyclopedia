@@ -1,4 +1,4 @@
-import { render } from 'utils/test-utils';
+import { render, fireEvent } from 'utils/test-utils';
 import Input from './Input';
 
 
@@ -11,8 +11,8 @@ describe('Input components', () => {
       .toBeInTheDocument();
   });
 
-  it('renders input element with placeholder', () => {
-    let placeholderText = 'Name';
+  it('displays given placeholder', () => {
+    const placeholderText = 'Name';
     const { getByPlaceholderText } = render(
       <Input placeholder={placeholderText} />
     );
@@ -21,13 +21,28 @@ describe('Input components', () => {
       .toBeInTheDocument();
   });
 
-  it('displays proper value', () => {
+  it('displays given label', () => {
+    const labelText = "Name";
     const { getByLabelText } = render(
-      <Input name="Name" />
+      <Input name={labelText} label={labelText}/>
       );
 
-    expect(getByLabelText("Name"))
+    expect(getByLabelText(labelText))
       .toBeInTheDocument();
+  });
+
+  it('displays proper value', () => {
+    const { getByTestId } = render(<Input />);
+    const input = getByTestId('sample-input');
+
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(
+      input,
+      { target: { value: 'hello' } },
+      );
+
+    expect(input).toHaveValue('hello');
   });
 
 })
