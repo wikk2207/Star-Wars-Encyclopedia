@@ -50,7 +50,7 @@ const Input = ({name, label, ...inputProps}) => {
         {label}
       </StyledLabel>
       <StyledInput
-        data-testid={'sample-input'}
+        data-testid="sample-input"
         name={name}
         id={name}
         {...inputProps}

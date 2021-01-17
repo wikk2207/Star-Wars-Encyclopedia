@@ -32,14 +32,14 @@ const StyledIconButton = styled.button`
   display: inline-block;
 `;
 
-const CancelableItem = ({name, planetId, onDelete}) => {
+const RemovableElement = ({name, elementId, onDelete}) => {
   return (
     <StyledWrapper>
       <StyledParagraph>
         {name}
       </StyledParagraph>
       <StyledIconButton
-        onClick={() => onDelete(planetId)}
+        onClick={() => onDelete(elementId)}
         type="button"
       />
     </StyledWrapper>
@@ -47,8 +47,10 @@ const CancelableItem = ({name, planetId, onDelete}) => {
 }
 
 
-CancelableItem.propTypes = {
+RemovableElement.propTypes = {
   name: PropTypes.string.isRequired,
+  elementId: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
-export default CancelableItem;
+export default RemovableElement;

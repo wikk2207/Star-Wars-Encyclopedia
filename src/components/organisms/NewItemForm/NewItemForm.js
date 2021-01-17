@@ -1,10 +1,11 @@
+import {useState} from "react";
 import { Formik } from 'formik';
+import styled from 'styled-components';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
-import styled from 'styled-components';
-import {useState} from "react";
-import CancelableItem from "../../atoms/CancelableItem/CancelableItem";
-import Select from "../../molecules/Select/Select";
+import Select from "components/molecules/Select/Select";
+import RemovableElement from "components/atoms/RemovableElement/RemovableElement";
+
 
 const StyledWrapper = styled.div`
   background-color: white;
@@ -102,10 +103,10 @@ const NewItemForm = () => {
             {planets &&
             <StyledPlanetsWrapper>
               {selectedPlanets.map(({name, id}) => (
-                <CancelableItem
+                <RemovableElement
                   key={id}
                   name={name}
-                  planetId={id}
+                  elementId={id}
                   onDelete={(id) => handlePlanetDelete(id)}
                 />
               ))}
