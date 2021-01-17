@@ -3,7 +3,7 @@ import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
 import styled from 'styled-components';
 import {useState} from "react";
-import CancelableItem from "../../molecules/CancelableItem/CancelableItem";
+import CancelableItem from "../../atoms/CancelableItem/CancelableItem";
 import Select from "../../molecules/Select/Select";
 
 const StyledWrapper = styled.div`

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import arrowOpenIcon from 'assets/arrow_open.svg';
 import arrowCloseIcon from 'assets/arrow_close.svg';
-import Heading from "components/atoms/Heading/Heading";
 import PropTypes from 'prop-types';
 import {useState} from "react";
 import PlanetsTable from "components/molecules/PlanetsTable/PlanetsTable";
@@ -21,11 +20,14 @@ const HeadingWrapper = styled.div`
   top: 0;
 `;
 
-const StyledHeading = styled(Heading)`
+const StyledHeading = styled.h1`
   text-align: left;
   margin: 14px 0 14px 15px;
   display: inline-block;
   width: 100%;
+  color: ${({theme}) => theme.color.text.accent};
+  font-size: ${({theme}) => theme.fontSize.s};
+  font-weight: bold;
 `;
 
 const StyledIconButton = styled.button`

@@ -3,7 +3,7 @@ import Input from './Input';
 
 
 
-describe('Input components', () => {
+describe('Input component', () => {
   it('renders input element', () => {
     const { getByTestId } = render(<Input />);
 
