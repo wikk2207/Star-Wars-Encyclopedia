@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import deleteIcon from 'assets/delete.svg';
-import Paragraph from "components/atoms/Paragraph/Paragraph";
 
 const StyledWrapper = styled.div`
   width: fit-content;
@@ -13,10 +12,12 @@ const StyledWrapper = styled.div`
   display: inline-block;
 `;
 
-const StyledParagraph = styled(Paragraph)`
+const StyledParagraph = styled.p`
   text-align: left;
   margin: 6px 0px 6px 16px;
   display: inline-block;
+  color: ${({ theme }) => theme.color.text.regular};
+  font-size: ${({ theme }) => theme.fontSize.s};
 `;
 
 const StyledIconButton = styled.button`

@@ -2,11 +2,11 @@ import React from 'react';
 import Select from "./Select";
 
 const items = [
-  {value: 'Alderaan'},
-  {value: 'pear'},
-  {value: 'orange'},
-  {value: 'grape'},
-  {value: 'banana'},
+  {value: 'apple', name: 'apple'},
+  {value: 'pear', name: 'pear'},
+  {value: 'orange', name: 'orange'},
+  {value: 'grape', name: 'grape'},
+  {value: 'banana', name: 'banana'},
 ]
 
 export default {
@@ -19,5 +19,7 @@ const Template = (args) => <Select {...args} />;
 export const Primary = Template.bind({});
 
 Primary.args = {
-  items
+  items,
+  onItemSelect: () => {},
+  name: 'fruit',
 }

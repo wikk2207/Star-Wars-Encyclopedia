@@ -12,6 +12,8 @@ export const Primary = Template.bind({});
 
 Primary.args = {
   placeholder: 'Please enter the title of the movie',
+  name: 'title',
+  label: 'Movie title',
 }
 
 export const Search = Template.bind({});
@@ -19,4 +21,6 @@ export const Search = Template.bind({});
 Search.args = {
   placeholder: 'Search for the planet in database',
   search: true,
+  name: 'planet',
+  label: 'Add planet',
 }

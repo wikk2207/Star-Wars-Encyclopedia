@@ -2,6 +2,7 @@ import Downshift from 'downshift';
 import Input from "components/atoms/Input/Input";
 import {useState} from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 const StyledUl = styled.ul`
   list-style-type: none;
@@ -18,7 +19,13 @@ const StyledUl = styled.ul`
   }
 `;
 
-const Select = ({items, placeholder, onItemSelect}) => {
+const Select = ({
+                  items,
+                  placeholder,
+                  onItemSelect,
+                  label,
+                  name,
+                }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
@@ -41,8 +48,8 @@ const Select = ({items, placeholder, onItemSelect}) => {
         setInputValue('')
         setMenuOpen(false)
         setSelectedItem(null)
-      }
-      }
+      }}
+      inputId={name}
     >
       {({
           getInputProps,
@@ -57,8 +64,10 @@ const Select = ({items, placeholder, onItemSelect}) => {
           <Input
             {...getInputProps()}
             search
+            name={name}
             placeholder={placeholder}
             onFocus={() => setMenuOpen(true)}
+            label={label}
           />
           <StyledUl {...getMenuProps()} >
             {isOpen &&
@@ -86,5 +95,23 @@ const Select = ({items, placeholder, onItemSelect}) => {
     </Downshift>
   )
 }
+
+Select.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    name:PropTypes.string.isRequired,
+  })),
+  placeholder: PropTypes.string,
+  onItemSelect: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+}
+
+Select.defaultProps = {
+  items: [],
+  placeholder: 'Search value',
+  label: 'Select value',
+}
+
 
 export default Select;

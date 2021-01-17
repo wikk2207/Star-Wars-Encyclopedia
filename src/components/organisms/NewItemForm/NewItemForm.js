@@ -1,7 +1,6 @@
 import { Formik } from 'formik';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
-import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import styled from 'styled-components';
 import {useState} from "react";
 import CancelableItem from "../../molecules/CancelableItem/CancelableItem";
@@ -17,7 +16,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledPlanetsWrapper = styled.div`
-  margin-top: 16px;
+  margin: 16px 0;
   width: 54rem;
 `;
 
@@ -90,13 +89,13 @@ const NewItemForm = () => {
             errors
           }) => (
           <StyledForm onSubmit={handleSubmit}>
-            <Paragraph>Movie title</Paragraph>
             <Input
               type="text"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.title}
               name="title"
+              label="Movie title"
               placeholder="Please enter the title of the movie"
             />
             {errors.title && <div id="feedback">{errors.title}</div>}
@@ -111,8 +110,9 @@ const NewItemForm = () => {
                 />
               ))}
             </StyledPlanetsWrapper>}
-            <Paragraph>Add planet</Paragraph>
             <Select
+              name="planet"
+              label="Add planet"
               items={planets}
               placeholder="Search for the planet in database"
               onItemSelect={(item) => handleSelectPlanet(item)}
