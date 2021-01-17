@@ -4,14 +4,14 @@ import Input from './Input';
 
 
 describe('Input component', () => {
-  it('renders input element', () => {
+  it('should render input element', () => {
     const { getByTestId } = render(<Input />);
 
     expect(getByTestId('sample-input'))
       .toBeInTheDocument();
   });
 
-  it('displays given placeholder', () => {
+  it('should display given placeholder', () => {
     const placeholderText = 'Name';
     const { getByPlaceholderText } = render(
       <Input placeholder={placeholderText} />
@@ -21,7 +21,7 @@ describe('Input component', () => {
       .toBeInTheDocument();
   });
 
-  it('displays given label', () => {
+  it('should display given label', () => {
     const labelText = "Name";
     const { getByLabelText } = render(
       <Input name={labelText} label={labelText}/>
@@ -31,7 +31,7 @@ describe('Input component', () => {
       .toBeInTheDocument();
   });
 
-  it('displays proper value', () => {
+  it('should display proper value', () => {
     const { getByTestId } = render(<Input />);
     const input = getByTestId('sample-input');
 

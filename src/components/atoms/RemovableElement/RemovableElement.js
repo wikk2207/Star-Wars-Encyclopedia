@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import deleteIcon from 'assets/delete.svg';
 
 const StyledWrapper = styled.div`
@@ -34,11 +34,12 @@ const StyledIconButton = styled.button`
 
 const RemovableElement = ({name, elementId, onDelete}) => {
   return (
-    <StyledWrapper>
-      <StyledParagraph>
+    <StyledWrapper data-testid="sample-element">
+      <StyledParagraph data-testid="sample-text">
         {name}
       </StyledParagraph>
       <StyledIconButton
+        data-testid="sample-button"
         onClick={() => onDelete(elementId)}
         type="button"
       />
