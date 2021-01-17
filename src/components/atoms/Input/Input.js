@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import magnifierIcon from 'assets/search.svg';
 
-const Input = styled.input`
+const StyledInput = styled.input`
   padding-bottom: 7px;
   font-size: 16px;
   background-color: white;
@@ -31,5 +31,9 @@ const Input = styled.input`
       background-repeat: no-repeat;
     `}
 `;
+
+const Input = (props) => {
+  return <StyledInput {...props} data-testid={'sample-input'} />;
+}
 
 export default Input;
