@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import Downshift from 'downshift';
-import Input from "components/atoms/Input/Input";
-import {useState} from "react";
-import styled from "styled-components";
 import PropTypes from 'prop-types';
+import styled from "styled-components";
+import Input from "components/atoms/Input/Input";
+
 
 const StyledUl = styled.ul`
   list-style-type: none;
@@ -26,10 +27,10 @@ const Select = ({
                   label,
                   name,
                 }) => {
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
-
 
 
   return (
@@ -60,7 +61,7 @@ const Select = ({
           selectedItem,
           isOpen,
         }) => (
-        <div >
+        <div data-testid="sample-select">
           <Input
             {...getInputProps()}
             search
@@ -101,16 +102,14 @@ Select.propTypes = {
     value: PropTypes.string.isRequired,
     name:PropTypes.string.isRequired,
   })),
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
   onItemSelect: PropTypes.func.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 }
 
 Select.defaultProps = {
   items: [],
-  placeholder: 'Search value',
-  label: 'Select value',
 }
 
 

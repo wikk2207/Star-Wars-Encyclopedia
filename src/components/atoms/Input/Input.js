@@ -41,7 +41,6 @@ const StyledLabel = styled.label`
 `;
 
 const Input = ({name, label, ...inputProps}) => {
-  console.log(name);
   return (
     <>
       <StyledLabel
