@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import Downshift from 'downshift';
-import Input from "components/atoms/Input/Input";
-import {useState} from "react";
+import PropTypes from 'prop-types';
 import styled from "styled-components";
+import Input from "components/atoms/Input/Input";
+
 
 const StyledUl = styled.ul`
   list-style-type: none;
@@ -18,11 +20,17 @@ const StyledUl = styled.ul`
   }
 `;
 
-const Select = ({items, placeholder, onItemSelect}) => {
+const Select = ({
+                  items,
+                  placeholder,
+                  onItemSelect,
+                  label,
+                  name,
+                }) => {
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
-
 
 
   return (
@@ -41,8 +49,8 @@ const Select = ({items, placeholder, onItemSelect}) => {
         setInputValue('')
         setMenuOpen(false)
         setSelectedItem(null)
-      }
-      }
+      }}
+      inputId={name}
     >
       {({
           getInputProps,
@@ -53,12 +61,14 @@ const Select = ({items, placeholder, onItemSelect}) => {
           selectedItem,
           isOpen,
         }) => (
-        <div >
+        <div data-testid="sample-select">
           <Input
             {...getInputProps()}
             search
+            name={name}
             placeholder={placeholder}
             onFocus={() => setMenuOpen(true)}
+            label={label}
           />
           <StyledUl {...getMenuProps()} >
             {isOpen &&
@@ -86,5 +96,21 @@ const Select = ({items, placeholder, onItemSelect}) => {
     </Downshift>
   )
 }
+
+Select.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    name:PropTypes.string.isRequired,
+  })),
+  placeholder: PropTypes.string.isRequired,
+  onItemSelect: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+}
+
+Select.defaultProps = {
+  items: [],
+}
+
 
 export default Select;

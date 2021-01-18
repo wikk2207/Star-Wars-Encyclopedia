@@ -39,9 +39,9 @@ export default {
 
 const Template = (args) => <CollapsableItem {...args} />;
 
-export const Primary = Template.bind({});
+export const Empty = Template.bind({});
 
-Primary.args = {
+Empty.args = {
   title: 'A New Hope',
 }
 

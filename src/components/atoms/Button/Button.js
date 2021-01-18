@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.color.background.accent};
   border: none;
   border-radius: 4px;
@@ -12,5 +12,12 @@ const Button = styled.button`
   font-style: normal;
   font-weight: bold;
 `;
+
+const Button = (props) => (
+  <StyledButton
+    {...props}
+    data-testid="sample-button"
+  />
+)
 
 export default Button;

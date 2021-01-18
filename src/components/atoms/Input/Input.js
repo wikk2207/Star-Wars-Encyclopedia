@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import magnifierIcon from 'assets/search.svg';
 
-const Input = styled.input`
+const StyledInput = styled.input`
   padding-bottom: 7px;
   font-size: 16px;
   background-color: white;
@@ -12,7 +12,6 @@ const Input = styled.input`
   color: ${({theme}) => theme.color.text.regular};
 
   ::placeholder {
-    letter-spacing: 1px;
     color: ${({ theme }) => theme.color.text.placeholder};
   }
   
@@ -31,5 +30,32 @@ const Input = styled.input`
       background-repeat: no-repeat;
     `}
 `;
+
+const StyledLabel = styled.label`
+  font-style: normal;
+  font-weight: normal;
+  color: ${({ theme }) => theme.color.text.regular};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  display: block;
+  margin-bottom: 5px;
+`;
+
+const Input = ({name, label, ...inputProps}) => {
+  return (
+    <>
+      <StyledLabel
+        htmlFor={name}
+      >
+        {label}
+      </StyledLabel>
+      <StyledInput
+        data-testid="sample-input"
+        name={name}
+        id={name}
+        {...inputProps}
+      />
+    </>
+  );
+}
 
 export default Input;
