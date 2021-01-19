@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import magnifierIcon from 'assets/search.svg';
 
 const StyledInput = styled.input`
@@ -8,15 +9,12 @@ const StyledInput = styled.input`
   border-style: solid;
   border-color: #999999;
   border-width: 0px 0px 1px 0px;
-  width: 54rem;
   color: ${({theme}) => theme.color.text.regular};
+  outline: none;
+  width: 100%;
 
   ::placeholder {
     color: ${({ theme }) => theme.color.text.placeholder};
-  }
-  
-  :focus{
-    outline: none;
   }
 
   ${({ search }) =>
@@ -56,6 +54,11 @@ const Input = ({name, label, ...inputProps}) => {
       />
     </>
   );
+}
+
+Input.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 }
 
 export default Input;

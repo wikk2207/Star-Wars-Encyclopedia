@@ -30,6 +30,7 @@ const StyledIconButton = styled.button`
   border: none;
   background-color: transparent;
   display: inline-block;
+  outline: none;
 `;
 
 const RemovableElement = ({name, elementId, onDelete}) => {

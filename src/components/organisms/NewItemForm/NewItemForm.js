@@ -1,48 +1,55 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { Formik } from 'formik';
 import styled from 'styled-components';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
 import Select from "components/molecules/Select/Select";
 import RemovableElement from "components/atoms/RemovableElement/RemovableElement";
+import {useQuery} from "@apollo/client";
+import {GET_PLANETS} from "../../../api/queries";
 
 
 const StyledWrapper = styled.div`
+  margin: auto;
   background-color: white;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  width: 60rem;
+  width: 75%;
   align-items: center;
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const StyledPlanetsWrapper = styled.div`
   margin: 16px 0;
-  width: 54rem;
+  width: 100%;
 `;
 
 const StyledButton = styled(Button)`
   align-self: flex-end;
   margin: 30px 0;
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    width: 100%;
+    align-self: center;
+    margin: 30px 10px 0 10px;
+  }
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const NewItemForm = () => {
-  const [planets, setPlanets] = useState([
-    {name: 'planeta1', id: '23353'},
-    {name: 'planetdda1', id: '2333'},
-    {name: 'Ziemia', id: '244333'},
-    {name: 'planeta1', id: '236353'},
-    {name: 'planetdda1', id: '23733'},
-    {name: 'Ziemia', id: '2443433'},
-    {name: 'planeta1', id: '233353'},
-    {name: 'planetdda1', id: '23133'},
-    {name: 'Ziemia', id: '2443833'},
-    ]);
+  const { data } = useQuery(GET_PLANETS);
+  const [planets, setPlanets] = useState([]);
   const [selectedPlanets, setSelectedPlanets] = useState([])
 
   const handlePlanetDelete = (itemId) => {
@@ -57,6 +64,13 @@ const NewItemForm = () => {
       return prevState.filter( ({id}) => itemId !== id)
     })
   }
+
+  useEffect(() => {
+    if(data) {
+      const {allPlanets: {planets}} = data;
+      setPlanets(planets);
+    }
+  }, [data]);
 
   const handleSelectPlanet = (planet) => {
     setPlanets(prevState => {
@@ -96,6 +110,7 @@ const NewItemForm = () => {
               onBlur={handleBlur}
               value={values.title}
               name="title"
+              autoComplete="off"
               label="Movie title"
               placeholder="Please enter the title of the movie"
             />

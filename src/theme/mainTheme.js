@@ -15,6 +15,7 @@ export const theme = {
       regular: '#474747',
       placeholder: '#C4C4C4',
       error: '#FF1616',
+      footer: '#999999',
     }
   },
   fontSize: {

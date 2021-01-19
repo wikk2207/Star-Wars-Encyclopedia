@@ -1,42 +1,26 @@
+import React, {useEffect, useMemo, useState} from "react";
 import { useTable, useSortBy } from 'react-table';
-import { useMemo } from "react";
+import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
+import StyledTable from './StyledTable';
+
+
 import styled from "styled-components";
+import {useQuery} from "@apollo/client";
+import { GET_PLANETS_FOR_MOVIE } from "../../../api/queries";
 
-const StyledTable = styled.table`
-  font-size: ${({theme}) => theme.fontSize.xs};
-  color: ${({theme}) => theme.color.text.regular};
-  background-color: white;
-  width: 73rem;
-  padding: 16px;
+
+const StyledLoader = styled(Loader)`
+  width: fit-content;
+  margin: 25px auto 0 auto;
 `;
 
-const StyledTableRow = styled.tr`
-
+const StyledWrapper = styled.div`
+  width: 100%;
+  margin: auto;
 `;
 
-const StyledTableHeaderRow = styled.tr`
-  box-shadow: 0 1px 0px rgba(196, 196, 196, 1);
-`;
-
-const StyledTableHeader = styled.th`
-  font-weight: normal;
-  text-align: ${({isName}) => isName ? 'left' : 'right'};
-  padding: 7px 0;
-  color: ${({isName, theme}) => isName
-  ? theme.color.text.accent
-  : theme.color.text.regular};
-`;
-
-const StyledTableCell = styled.td`
-  width: 10rem;
-  padding: 15px 0;
-  text-align: ${({isName}) => isName ? 'left' : 'right'};
-  color: ${({isName, theme}) => isName
-  ? theme.color.text.accent
-  : theme.color.text.regular};
-`;
-
-const PlanetsTable = ({data}) => {
+const PlanetsTable = ({movieId}) => {
   const columns = useMemo(
     () => [
       {
@@ -71,68 +55,97 @@ const PlanetsTable = ({data}) => {
     []
   )
 
+  const [planets, setPlanets] = useState([])
+  const { loading, data: response } = useQuery(
+    GET_PLANETS_FOR_MOVIE,
+    {variables: {id: movieId}}
+    );
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy)
+  } = useTable({ columns, data: planets }, useSortBy);
+
+  useEffect(() => {
+    if(response) {
+      const {film: {planetConnection: {planets}}} = response;
+      setPlanets(planets);
+    }
+  }, [response]);
+
+  const displayCell = (cellValue) => {
+    if(!cellValue) {
+      return 'unknown';
+    }
+    if (cellValue instanceof Array) {
+      return cellValue.join(', ');
+    }
+    return cellValue;
+  }
 
   return (
-    <StyledTable {...getTableProps()}>
-      <thead>
-      {headerGroups.map(headerGroup => (
-        <StyledTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map(column => {
-            let props = {...column.getHeaderProps(column.getSortByToggleProps())}
-            if (column.id==="name") {
-              props = {
-                ...props,
-                isName: true,
-              }
-            }
-            return (
-              <StyledTableHeader {...props}>
-                {column.render('Header')}
-                <span>
+    <StyledWrapper>
+      { loading && (
+        <StyledLoader
+          type="TailSpin"
+          color="#00BFFF"
+          height={25}
+          width={25}
+        />
+      )}
+      {
+        response && (
+          <StyledTable {...getTableProps()}>
+            <thead>
+            {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => {
+                  let props = {...column.getHeaderProps(column.getSortByToggleProps())}
+                  return (
+                    <th {...props}>
+                      {column.render('Header')}
+                      <span>
                     {column.isSorted
                       ? column.isSortedDesc
                         ? ' ▼'
                         : ' ▲'
                       : ''}
                   </span>
-              </StyledTableHeader>
-            );
-          })}
-        </StyledTableHeaderRow>
-      ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-      {rows.map(row => {
-        prepareRow(row)
-        return (
-          <StyledTableRow {...row.getRowProps()}>
-            {row.cells.map(cell => {
-              let props = {...cell.getCellProps()}
-              if (cell.column.id==="name") {
-                props = {
-                  ...props,
-                  isName: true,
-                }
-              }
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row)
               return (
-                <StyledTableCell {...props}>
-                  {cell.render('Cell')}
-                </StyledTableCell>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map(cell => {
+                    let props = {...cell.getCellProps()}
+                    return (
+                      <td {...props}>
+                        {displayCell(cell.value)}
+                      </td>
+                    )
+                  })}
+                </tr>
               )
             })}
-          </StyledTableRow>
+            </tbody>
+          </StyledTable>
         )
-      })}
-      </tbody>
-    </StyledTable>
+      }
+    </StyledWrapper>
   )
+}
+
+PlanetsTable.propTypes = {
+  movieId: PropTypes.string.isRequired,
 }
 
 export default PlanetsTable;
