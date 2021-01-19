@@ -89,7 +89,7 @@ const CollapsibleItem = ({title, children}) => {
         <StyledIconButton onClick={toggleCollapsed} isCollapsed={isCollapsed} />
       </HeadingWrapper>
       <ContentWrapper isCollapsed={isCollapsed}>
-        {children}
+        {!isCollapsed && children}
       </ContentWrapper>
     </StyledWrapper>
   )

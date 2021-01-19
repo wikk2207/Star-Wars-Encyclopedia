@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import logoImage from 'assets/logo.svg';
 import CollapsibleItem from 'components/organisms//CollapsibleItem';
 import PlanetsTable from 'components/molecules/PlanetsTable';
 import NewItemForm from "../components/organisms/NewItemForm";
+import {useQuery} from "@apollo/client";
+import {GET_MOVIES} from "../api/queries";
 
 const StyledWrapper = styled.div`
   background-color: ${({theme}) => theme.color.background.grey};
@@ -40,17 +42,15 @@ const StyledCopyright = styled.p`
 `;
 
 const Main = () => {
-  const movies = [
-    {title: 'A new Hope', id: '1'},
-    {title: 'Attack of the Clones', id: '2'},
-    {title: 'The Phantom Menace', id: '3'},
-    ];
+  //const [movies, setMovies] = useState([]);
+
+  const { loading, error, data } = useQuery(GET_MOVIES);
 
   return (
     <StyledWrapper>
       <StyledLogo src={logoImage} />
       <StyledItemsWrapper>
-        {movies.length && movies.map(({title, id}) => (
+        {data && data.allFilms.films.map(({title, id}) => (
           <CollapsibleItem title={title} key={id}>
             <PlanetsTable movieId={id}/>
           </CollapsibleItem>

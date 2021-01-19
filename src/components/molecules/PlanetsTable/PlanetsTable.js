@@ -1,8 +1,12 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { useTable, useSortBy } from 'react-table';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner'
+
 
 import styled from "styled-components";
+import {useQuery} from "@apollo/client";
+import {GET_MOVIE_PLANETS, GET_MOVIES} from "../../../api/queries";
 
 const StyledTable = styled.table`
   font-size: ${({theme}) => theme.fontSize.xs};
@@ -10,7 +14,6 @@ const StyledTable = styled.table`
   background-color: white;
   width: 100%;
   padding: 16px;
-  margin: auto;
 `;
 
 const StyledTableRow = styled.tr`
@@ -37,6 +40,16 @@ const StyledTableCell = styled.td`
   color: ${({isName, theme}) => isName
   ? theme.color.text.accent
   : theme.color.text.regular};
+`;
+
+const StyledLoader = styled(Loader)`
+  width: fit-content;
+  margin: 25px auto 0 auto;
+`;
+
+const StyledWrapper = styled.div`
+  width: 100%;
+  margin: auto;
 `;
 
 const PlanetsTable = ({movieId}) => {
@@ -74,7 +87,11 @@ const PlanetsTable = ({movieId}) => {
     []
   )
 
-  const [data, setData] = useState([])
+  const [planets, setPlanets] = useState([])
+  const { loading, error, data: response } = useQuery(
+    GET_MOVIE_PLANETS,
+    {variables: {id: movieId}}
+    );
 
   const {
     getTableProps,
@@ -82,61 +99,85 @@ const PlanetsTable = ({movieId}) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy)
+  } = useTable({ columns, data: planets }, useSortBy);
+
+  useEffect(() => {
+    console.log(response)
+    if(response) {
+      const {film: {planetConnection: {planets}}} = response;
+      console.log(planets);
+
+      setPlanets(planets);
+    }
+  }, [response]);
 
   return (
-    <StyledTable {...getTableProps()}>
-      <thead>
-      {headerGroups.map(headerGroup => (
-        <StyledTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map(column => {
-            let props = {...column.getHeaderProps(column.getSortByToggleProps())}
-            if (column.id==="name") {
-              props = {
-                ...props,
-                isName: true,
-              }
-            }
-            return (
-              <StyledTableHeader {...props}>
-                {column.render('Header')}
-                <span>
+    <StyledWrapper>
+      { loading && (
+        <StyledLoader
+          type="TailSpin"
+          color="#00BFFF"
+          height={25}
+          width={25}
+        />
+      )}
+      {
+        response && (
+          <StyledTable {...getTableProps()}>
+            <thead>
+            {headerGroups.map(headerGroup => (
+              <StyledTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => {
+                  let props = {...column.getHeaderProps(column.getSortByToggleProps())}
+                  if (column.id==="name") {
+                    props = {
+                      ...props,
+                      isName: true,
+                    }
+                  }
+                  return (
+                    <StyledTableHeader {...props}>
+                      {column.render('Header')}
+                      <span>
                     {column.isSorted
                       ? column.isSortedDesc
                         ? ' ▼'
                         : ' ▲'
                       : ''}
                   </span>
-              </StyledTableHeader>
-            );
-          })}
-        </StyledTableHeaderRow>
-      ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-      {rows.map(row => {
-        prepareRow(row)
-        return (
-          <StyledTableRow {...row.getRowProps()}>
-            {row.cells.map(cell => {
-              let props = {...cell.getCellProps()}
-              if (cell.column.id==="name") {
-                props = {
-                  ...props,
-                  isName: true,
-                }
-              }
+                    </StyledTableHeader>
+                  );
+                })}
+              </StyledTableHeaderRow>
+            ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row)
               return (
-                <StyledTableCell {...props}>
-                  {cell.render('Cell')}
-                </StyledTableCell>
+                <StyledTableRow {...row.getRowProps()}>
+                  {row.cells.map(cell => {
+                    let props = {...cell.getCellProps()}
+                    if (cell.column.id==="name") {
+                      props = {
+                        ...props,
+                        isName: true,
+                      }
+                    }
+                    return (
+                      <StyledTableCell {...props}>
+                        {cell.render('Cell')}
+                      </StyledTableCell>
+                    )
+                  })}
+                </StyledTableRow>
               )
             })}
-          </StyledTableRow>
+            </tbody>
+          </StyledTable>
         )
-      })}
-      </tbody>
-    </StyledTable>
+      }
+    </StyledWrapper>
   )
 }
 
