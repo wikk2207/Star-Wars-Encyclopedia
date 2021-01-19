@@ -76,6 +76,16 @@ const PlanetsTable = ({movieId}) => {
     }
   }, [response]);
 
+  const displayCell = (cellValue) => {
+    if(!cellValue) {
+      return 'unknown';
+    }
+    if (cellValue instanceof Array) {
+      return cellValue.join(', ');
+    }
+    return cellValue;
+  }
+
   return (
     <StyledWrapper>
       { loading && (
@@ -119,7 +129,7 @@ const PlanetsTable = ({movieId}) => {
                     let props = {...cell.getCellProps()}
                     return (
                       <td {...props}>
-                        {cell.render('Cell')}
+                        {displayCell(cell.value)}
                       </td>
                     )
                   })}
