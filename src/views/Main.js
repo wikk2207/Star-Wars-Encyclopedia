@@ -12,15 +12,28 @@ const StyledWrapper = styled.div`
   width: 65%;
   height: fit-content;
   border-radius: 8px;
-  margin: 100px auto 0 auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   //justify-content: space-between;
   position: relative;
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    width: 90%;
+    margin: 50px auto 0 auto;
+  }
 `;
 
 const StyledLogo = styled.img`
   margin: 30px auto;
+  width: 300px;
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    width: 60%;
+    max-width: 300px;
+  }
 `;
 
 const StyledItemsWrapper = styled.div`
