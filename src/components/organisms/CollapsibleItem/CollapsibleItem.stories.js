@@ -1,5 +1,5 @@
 import React from 'react';
-import CollapsableItem from "./CollapsableItem";
+import CollapsibleItem from "./CollapsibleItem";
 import PlanetsTable from "../../molecules/PlanetsTable/PlanetsTable";
 
 const planets = [
@@ -33,11 +33,11 @@ const planets = [
 ]
 
 export default {
-  title: 'Components/Organisms/CollapsableItem',
-  component: CollapsableItem,
+  title: 'Components/Organisms/CollapsibleItem',
+  component: CollapsibleItem,
 };
 
-const Template = (args) => <CollapsableItem {...args} />;
+const Template = (args) => <CollapsibleItem {...args} />;
 
 export const Empty = Template.bind({});
 

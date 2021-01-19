@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import magnifierIcon from 'assets/search.svg';
 
 const StyledInput = styled.input`
@@ -56,6 +57,11 @@ const Input = ({name, label, ...inputProps}) => {
       />
     </>
   );
+}
+
+Input.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 }
 
 export default Input;

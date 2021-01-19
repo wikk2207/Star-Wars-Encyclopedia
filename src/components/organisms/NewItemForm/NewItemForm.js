@@ -8,6 +8,7 @@ import RemovableElement from "components/atoms/RemovableElement/RemovableElement
 
 
 const StyledWrapper = styled.div`
+  margin: auto;
   background-color: white;
   padding: 10px;
   display: flex;
@@ -33,15 +34,15 @@ const StyledForm = styled.form`
 
 const NewItemForm = () => {
   const [planets, setPlanets] = useState([
-    {name: 'planeta1', id: '23353'},
-    {name: 'planetdda1', id: '2333'},
-    {name: 'Ziemia', id: '244333'},
-    {name: 'planeta1', id: '236353'},
-    {name: 'planetdda1', id: '23733'},
-    {name: 'Ziemia', id: '2443433'},
-    {name: 'planeta1', id: '233353'},
-    {name: 'planetdda1', id: '23133'},
-    {name: 'Ziemia', id: '2443833'},
+    {name: 'planeta1', value: '23353'},
+    {name: 'planetdda1', value: '2333'},
+    {name: 'Ziemia', value: '244333'},
+    {name: 'planeta1', value: '236353'},
+    {name: 'planetdda1', value: '23733'},
+    {name: 'Ziemia', value: '2443433'},
+    {name: 'planeta1', value: '233353'},
+    {name: 'planetdda1', value: '23133'},
+    {name: 'Ziemia', value: '2443833'},
     ]);
   const [selectedPlanets, setSelectedPlanets] = useState([])
 
@@ -96,6 +97,7 @@ const NewItemForm = () => {
               onBlur={handleBlur}
               value={values.title}
               name="title"
+              autoComplete="off"
               label="Movie title"
               placeholder="Please enter the title of the movie"
             />

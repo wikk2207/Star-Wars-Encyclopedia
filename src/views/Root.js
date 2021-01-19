@@ -1,9 +1,16 @@
-import './App.css';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import Main from 'views/Main';
+import { theme } from 'theme/mainTheme';
+import GlobalStyle from 'theme/GlobalStyle';
 
 function Root() {
   return (
     <div className="Root">
-     <h1>Hello, World</h1>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Main />
+      </ThemeProvider>
     </div>
   );
 }

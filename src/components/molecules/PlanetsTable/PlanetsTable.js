@@ -1,13 +1,16 @@
+import React, {useMemo, useState} from "react";
 import { useTable, useSortBy } from 'react-table';
-import { useMemo } from "react";
+import PropTypes from 'prop-types';
+
 import styled from "styled-components";
 
 const StyledTable = styled.table`
   font-size: ${({theme}) => theme.fontSize.xs};
   color: ${({theme}) => theme.color.text.regular};
   background-color: white;
-  width: 73rem;
+  width: 100%;
   padding: 16px;
+  margin: auto;
 `;
 
 const StyledTableRow = styled.tr`
@@ -36,7 +39,7 @@ const StyledTableCell = styled.td`
   : theme.color.text.regular};
 `;
 
-const PlanetsTable = ({data}) => {
+const PlanetsTable = ({movieId}) => {
   const columns = useMemo(
     () => [
       {
@@ -70,6 +73,8 @@ const PlanetsTable = ({data}) => {
     ],
     []
   )
+
+  const [data, setData] = useState([])
 
   const {
     getTableProps,
@@ -133,6 +138,10 @@ const PlanetsTable = ({data}) => {
       </tbody>
     </StyledTable>
   )
+}
+
+PlanetsTable.propTypes = {
+  movieId: PropTypes.string.isRequired,
 }
 
 export default PlanetsTable;

@@ -32,7 +32,6 @@ const Select = ({
   const [inputValue, setInputValue] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
 
-
   return (
     <Downshift
       isOpen={isMenuOpen}
@@ -101,16 +100,13 @@ Select.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     name:PropTypes.string.isRequired,
-  })),
+  })).isRequired,
   placeholder: PropTypes.string.isRequired,
   onItemSelect: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 }
 
-Select.defaultProps = {
-  items: [],
-}
 
 
 export default Select;
