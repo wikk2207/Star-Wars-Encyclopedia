@@ -11,7 +11,7 @@ export const GET_MOVIES = gql`
   }
 `;
 
-export const GET_MOVIE_PLANETS = gql`
+export const GET_PLANETS_FOR_MOVIE = gql`
   query GetPlanetsForFilm  ($id: ID){
     film(id: $id) {
       planetConnection {
@@ -27,5 +27,16 @@ export const GET_MOVIE_PLANETS = gql`
         }
       }
     }
+  }
+`;
+
+export const GET_PLANETS = gql`
+  query GetAllPlanets {
+    allPlanets {
+      planets {
+        name
+        id
+      }
+    } 
   }
 `;

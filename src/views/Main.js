@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import logoImage from 'assets/logo.svg';
 import CollapsibleItem from 'components/organisms//CollapsibleItem';
@@ -55,9 +55,7 @@ const StyledCopyright = styled.p`
 `;
 
 const Main = () => {
-  //const [movies, setMovies] = useState([]);
-
-  const { loading, error, data } = useQuery(GET_MOVIES);
+  const { data } = useQuery(GET_MOVIES);
 
   return (
     <StyledWrapper>

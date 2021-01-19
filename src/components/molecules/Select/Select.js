@@ -9,15 +9,25 @@ const StyledUl = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 54rem;
   box-shadow: 0px 4px 12px rgba(224, 230, 238, 0.5);
   z-index: 1;
   position: absolute;
+  width: calc(75% - 20px);
+
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    width: calc(100% - 20px);
+  }
   
   li {
     padding: 10px;
     color: ${({theme}) => theme.color.text.regular};
   }
+`;
+
+const StyledDownshift = styled(Downshift)`
+  width: 100%;
 `;
 
 const Select = ({
@@ -33,7 +43,7 @@ const Select = ({
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
-    <Downshift
+    <StyledDownshift
       isOpen={isMenuOpen}
       onOuterClick={() => {
         setMenuOpen(false)
@@ -46,7 +56,6 @@ const Select = ({
       onSelect={(selectedItem) => {
         onItemSelect(selectedItem)
         setInputValue('')
-        setMenuOpen(false)
         setSelectedItem(null)
       }}
       inputId={name}
@@ -72,11 +81,14 @@ const Select = ({
           <StyledUl {...getMenuProps()} >
             {isOpen &&
             items
-              .filter((item) => !inputValue || item.name.includes(inputValue))
+              .filter((item) =>
+                !inputValue
+                || item.name.toLowerCase()
+                  .includes(inputValue.toLowerCase()))
               .map((item, index) => (
                 <li
                   {...getItemProps({
-                    key: `${item.value}${index}`,
+                    key: `${item.id}${index}`,
                     item,
                     index,
                     style: {
@@ -92,13 +104,13 @@ const Select = ({
           </StyledUl>
         </div>
       )}
-    </Downshift>
+    </StyledDownshift>
   )
 }
 
 Select.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     name:PropTypes.string.isRequired,
   })).isRequired,
   placeholder: PropTypes.string.isRequired,

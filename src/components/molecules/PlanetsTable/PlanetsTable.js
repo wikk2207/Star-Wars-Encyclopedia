@@ -7,7 +7,7 @@ import StyledTable from './StyledTable';
 
 import styled from "styled-components";
 import {useQuery} from "@apollo/client";
-import { GET_MOVIE_PLANETS } from "../../../api/queries";
+import { GET_PLANETS_FOR_MOVIE } from "../../../api/queries";
 
 
 const StyledLoader = styled(Loader)`
@@ -56,8 +56,8 @@ const PlanetsTable = ({movieId}) => {
   )
 
   const [planets, setPlanets] = useState([])
-  const { loading, error, data: response } = useQuery(
-    GET_MOVIE_PLANETS,
+  const { loading, data: response } = useQuery(
+    GET_PLANETS_FOR_MOVIE,
     {variables: {id: movieId}}
     );
 

@@ -17,29 +17,20 @@ const HeadingWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  //z-index: 9999;
-  //position: absolute;
-  //left: 0;
-  //top: 0;
 `;
 
 const StyledHeading = styled.h1`
   text-align: left;
   margin: 14px 0 14px 15px;
   display: inline-block;
-  //width: 95%;
   color: ${({theme}) => theme.color.text.accent};
   font-size: ${({theme}) => theme.fontSize.s};
   font-weight: bold;
-  //z-index: 1;
 `;
 
 const StyledIconButton = styled.button`
   margin: 0 10px;
   align-self: center;
-  //position: absolute;
- // right: 16px;
-  //top: 15px;
   width: 18px;
   height: 18px;
   background-image: url(${({isCollapsed}) => isCollapsed ? arrowOpenIcon : arrowCloseIcon});
@@ -47,7 +38,7 @@ const StyledIconButton = styled.button`
   background-position: 50% 50%;
   border: none;
   background-color: transparent;
-  //display: inline-block;
+  outline: none;
 `;
 
 const ContentWrapper = styled.div`
