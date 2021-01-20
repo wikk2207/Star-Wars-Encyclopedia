@@ -65,8 +65,7 @@ const StyledTable = styled.table`
     
     td:before {
       position: absolute;
-      top: 15px;
-      left: 0px;
+      left: 0;
       width: 45%;
       text-align: left;
     }
