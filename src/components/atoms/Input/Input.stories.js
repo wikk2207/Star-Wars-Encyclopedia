@@ -16,6 +16,15 @@ Primary.args = {
   label: 'Movie title',
 }
 
+export const Invalid = Template.bind({});
+
+Invalid.args = {
+  placeholder: 'Please enter the title of the movie',
+  name: 'title',
+  label: 'Movie title',
+  errorMessage: 'Movie title name must start with a capital letter.',
+}
+
 export const Search = Template.bind({});
 
 Search.args = {

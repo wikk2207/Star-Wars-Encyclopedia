@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
+import * as Yup from 'yup';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import Input from 'components/atoms/Input/Input';
-import Button from 'components/atoms/Button/Button';
-import Select from "components/molecules/Select/Select";
-import RemovableElement from "components/atoms/RemovableElement/RemovableElement";
-import {useQuery} from "@apollo/client";
-import {GET_PLANETS} from "../../../api/queries";
-
+import {useQuery} from '@apollo/client';
+import { GET_PLANETS } from 'api/queries';
+import Input from 'components/atoms/Input';
+import Button from 'components/atoms/Button';
+import Select from 'components/molecules/Select';
+import RemovableElement from 'components/atoms/RemovableElement';
 
 const StyledWrapper = styled.div`
   margin: auto;
@@ -50,7 +50,14 @@ const StyledForm = styled.form`
 const NewItemForm = () => {
   const { data } = useQuery(GET_PLANETS);
   const [planets, setPlanets] = useState([]);
-  const [selectedPlanets, setSelectedPlanets] = useState([])
+  const [selectedPlanets, setSelectedPlanets] = useState([]);
+
+  const validationSchema = Yup.object({
+    title: Yup.string().matches(
+      /^[A-Z]/,
+      'Movie title name must start with a capital letter.'
+      )
+  })
 
   const handlePlanetDelete = (itemId) => {
     const planet = selectedPlanets.find(({id}) => id === itemId);
@@ -94,6 +101,7 @@ const NewItemForm = () => {
             actions.setSubmitting(false);
           }, 1000);
         }}
+        validationSchema={validationSchema}
       >
         {
           ({
@@ -101,7 +109,8 @@ const NewItemForm = () => {
             handleChange,
             handleBlur,
             values,
-            errors
+            errors,
+            touched
           }) => (
           <StyledForm onSubmit={handleSubmit}>
             <Input
@@ -113,8 +122,8 @@ const NewItemForm = () => {
               autoComplete="off"
               label="Movie title"
               placeholder="Please enter the title of the movie"
+              errorMessage={touched.title ? errors.title : ''}
             />
-            {errors.title && <div id="feedback">{errors.title}</div>}
             {planets &&
             <StyledPlanetsWrapper>
               {selectedPlanets.map(({name, id}) => (
@@ -133,7 +142,6 @@ const NewItemForm = () => {
               placeholder="Search for the planet in database"
               onItemSelect={(item) => handleSelectPlanet(item)}
             />
-            {errors.planet && <div id="feedback">{errors.planet}</div>}
             <StyledButton type="submit">Add movie</StyledButton>
           </StyledForm>
         )}
